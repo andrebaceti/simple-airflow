@@ -1,0 +1,7 @@
+# Airflow instalation with dependencies
+apache-airflow[async,amazon,celery,cncf.kubernetes,docker,dask,elasticsearch,ftp,grpc,hashicorp,http,ldap,google,microsoft.azure,postgres,redis,sendgrid,sftp,slack,ssh,statsd,virtualenv,rabbitmq]==2.1.0
+
+# Other packages
+pandas
+SQLAlchemy
+psycopg2==2.8.6

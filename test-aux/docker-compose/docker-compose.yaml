@@ -1,0 +1,57 @@
+version: '3'
+services:
+  test-db-airflow:
+    image: andrebaceti/test-db-simple-airflow:$TEST_DB_AIRFLOW
+    restart: always
+    ports:
+      - 5432:5432
+
+  ############
+  # RabbitMQ #
+  rabbitmq-main:
+    image: rabbitmq:3-management
+    ports:
+      - 5672:5672
+      - 15672:15672
+    environment:
+      - RABBITMQ_DEFAULT_USER=pumpwood
+      - RABBITMQ_DEFAULT_PASS=pumpwood
+  ############
+
+  airflow-webserver:
+    image: andrebaceti/simple-airflow:$AIRFLOW
+    # volumes:
+    #   - airflow--dags:/airflow/dags/
+    #   - airflow--logs:/airflow/logs/
+    #   - airflow--plugins:/airflow/plugins/
+    #   - airflow--child-process:/airflow/child_process_log/
+    ports:
+      - 8080:8080
+
+  airflow-scheduler:
+    image: andrebaceti/simple-airflow:$AIRFLOW
+    command: ["bash", "/airflow/start_airflow__scheduler.sh"]
+    # volumes:
+    #   - airflow--dags:/airflow/dags/
+    #   - airflow--logs:/airflow/logs/
+    #   - airflow--plugins:/airflow/plugins/
+    #   - airflow--child-process:/airflow/child_process_log/
+
+  airflow-worker:
+    image: andrebaceti/simple-airflow:$AIRFLOW
+    command: ["bash", "/airflow/start_airflow__worker.sh"]
+    # volumes:
+    #   - airflow--dags:/airflow/dags/
+    #   - airflow--logs:/airflow/logs/
+    #   - airflow--plugins:/airflow/plugins/
+    #   - airflow--child-process:/airflow/child_process_log/
+
+# volumes:
+#   airflow--dags:
+#     external: true
+#   airflow--logs:
+#     external: true
+#   airflow--plugins:
+#     external: true
+#   airflow--child-process:
+#     external: true

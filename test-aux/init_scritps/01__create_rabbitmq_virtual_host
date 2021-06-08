@@ -1,0 +1,1 @@
+curl -u pumpwood:pumpwood -X PUT http://0.0.0.0:15672/api/vhosts/airflow

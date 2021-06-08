@@ -3,7 +3,10 @@
 This project was created to vacillate creation of AirFlow deploy using a default configuration and database bootstrap.
 
 ## /image
-Image for airflow deployment using RabbitMQ and Cellery.
+Image for airflow deployment using RabbitMQ and Cellery. Images created:
+- andrebaceti/simple-airflow:$version
+- andrebaceti/test-db-simple-airflow:$version
+
 
 ## /test-aux
 Auxiliary docker-compose to deploy locally airflow for tests and some initialization scripts.

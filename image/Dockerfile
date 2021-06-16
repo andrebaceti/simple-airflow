@@ -16,6 +16,9 @@ ENV RABBITMQ_PASSWORD="pumpwood"
 ENV RABBITMQ_HOST="rabbitmq-main"
 ENV RABBITMQ_PORT="5672"
 
+# Core config
+ENV AIRFLOW_HOME="/airflow"
+
 # Airflow executor
 ENV AIRFLOW__CORE__EXECUTOR="CeleryExecutor"
 
@@ -48,6 +51,8 @@ RUN RELEASE=$(lsb_release -cs) && \
 RUN curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add -
 RUN curl https://packages.microsoft.com/config/debian/9/prod.list > /etc/apt/sources.list.d/mssql-release.list
 
+# Installing cronjob to update Dags
+RUN apt-get install -y cron
 
 #######################################################
 # Updating system and installing general dependencies #
@@ -109,6 +114,11 @@ WORKDIR /airflow/plugins/
 WORKDIR /airflow/child_process_log/
 COPY code /airflow
 
+#############################
+# Coping git update cronjob #
+ADD cron/update_git /etc/cron.d/update_git
+RUN crontab /etc/cron.d/update_git
+
 # Default entrypoint as webserver
 WORKDIR /airflow/
-CMD ["bash", "/airflow/start_airflow__webserver.sh"]
+CMD ["bash", "/airflow/start_airflow__webserver.bash"]

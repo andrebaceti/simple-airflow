@@ -1,6 +1,14 @@
 # Image for easilly create an Airflow with distribuited cellery by RabbitMQ
 
-This project was created to vacillate creation of AirFlow deploy using a default configuration and database bootstrap.
+This project was created to vacillate creation of AirFlow deploy using a
+default configuration and database bootstrap.  
+
+It was added the integration with git so the dags can be create and pushed to
+a repository, the docker image pulls the repository content every 1 minute
+loading new dags to Airflow.  
+
+Git folder with dags is cloned to ```$AIRFLOW__CORE__DAGS_FOLDER/git_dags```
+path.
 
 ## /image
 Image for airflow deployment using RabbitMQ and Cellery. Images created:

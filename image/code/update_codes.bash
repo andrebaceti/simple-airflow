@@ -1,4 +1,6 @@
-cd /airflow/dags/airflow-dags
+cd /airflow/dags/git_dags
+
+git checkout ${GIT_BRANCH}
 git pull
 
 currentDate='date'

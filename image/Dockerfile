@@ -1,4 +1,4 @@
-FROM python:3.6.13-buster
+FROM python:3.8.5-buster
 
 #################################
 # Setting Environment Variables #
@@ -123,6 +123,11 @@ COPY code /airflow
 # Coping git update cronjob #
 ADD cron/update_git /etc/cron.d/update_git
 RUN crontab /etc/cron.d/update_git
+
+###########################################################
+# Add a requirement to be installed every container start #
+ADD requirements/run_requirements.txt /requirements/requirements.txt
+
 
 # Default entrypoint as webserver
 WORKDIR /airflow/

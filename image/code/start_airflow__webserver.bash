@@ -9,8 +9,10 @@ source "${SCRIPTPATH}/wait-for-rabbitmq.bash"
 source "${SCRIPTPATH}/create_airflow_variables.bash"
 source "${SCRIPTPATH}/set_git.bash"
 
+set -e
 echo "# Checking if there is any migrations to apply at database"
 airflow db init
 
+set +e
 echo "# Starting webserver"
 airflow webserver

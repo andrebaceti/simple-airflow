@@ -34,7 +34,8 @@ ENV AIRFLOW__WEBSERVER__WEB_SERVER_HOST="0.0.0.0"
 ENV AIRFLOW__WEBSERVER__WEB_SERVER_PORT="8080"
 ENV AIRFLOW__WEBSERVER__SECRET_KEY_SECRET="o1vZ9ms0lEu2NaX7CXgfsw=="
 
-# Git information
+###################
+# Git information #
 # ENV GIT_SERVER
 # ENV GIT_REPOSITORY
 ENV GIT_BRANCH="master"
@@ -113,10 +114,10 @@ RUN pip3 install -r /requirements/requirements.txt \
 
 #########################################
 # Creating directories and coping codes #
-WORKDIR /airflow/dags/
-WORKDIR /airflow/logs/
-WORKDIR /airflow/plugins/
-WORKDIR /airflow/child_process_log/
+RUN mkdir -p /airflow/dags/
+RUN mkdir -p /airflow/logs/
+RUN mkdir -p /airflow/plugins/
+RUN mkdir -p /airflow/child_process_log/
 COPY code /airflow
 
 #############################
@@ -128,7 +129,7 @@ RUN crontab /etc/cron.d/update_git
 # Add a requirement to be installed every container start #
 ADD requirements/run_requirements.txt /requirements/requirements.txt
 
-
-# Default entrypoint as webserver
+###################################
+# Default entrypoint as webserver #
 WORKDIR /airflow/
 CMD ["bash", "/airflow/start_airflow__webserver.bash"]

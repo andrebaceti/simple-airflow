@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Setting known_hosts so accepting ssh keys is automatic
-ssh-keyscan ${GIT_SERVER}  >> ~/.ssh/known_hosts
+ssh-keyscan ${GIT_SERVER} > ~/.ssh/known_hosts
 
 # Cleaning dags folders
 rm -Rf /airflow/dags/*

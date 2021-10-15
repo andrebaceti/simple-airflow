@@ -11,7 +11,7 @@ source "${SCRIPTPATH}/set_git.bash"
 
 if [ -f "/airflow/dags/git_dags/requirements/requirements.txt" ]; then
     echo "Installing requirements.txt"
-    pip install -r /airflow/dags/requirements/requirements.txt
+    pip install -r /airflow/dags/git_dags/requirements/requirements.txt
 fi
 
 airflow scheduler

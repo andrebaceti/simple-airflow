@@ -9,6 +9,11 @@ source "${SCRIPTPATH}/wait-for-rabbitmq.bash"
 source "${SCRIPTPATH}/create_airflow_variables.bash"
 source "${SCRIPTPATH}/set_git.bash"
 
+if [ -f "/airflow/dags/requirements/requirements.txt" ]; then
+    echo "Installing requirements.txt"
+    pip install -r /airflow/dags/requirements/requirements.txt
+fi
+
 set -e
 echo "# Checking if there is any migrations to apply at database"
 airflow db init

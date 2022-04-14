@@ -1,7 +1,7 @@
 cd /airflow/dags/git_dags
 
-git checkout ${GIT_BRANCH}
 git pull
+git checkout ${GIT_BRANCH}
 
 currentDate='date'
 date +"%Y-%m-%d %T" > /gitupdate_status

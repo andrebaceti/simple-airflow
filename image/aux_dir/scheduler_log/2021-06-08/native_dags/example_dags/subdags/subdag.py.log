@@ -1,5 +1,0 @@
-[2021-06-08 10:04:06,698] {scheduler_job.py:182} INFO - Started process (PID=16753) to work on /home/encrypted/abaceti/.virtualenvs/pumpwood-airflow-images/lib/python3.6/site-packages/airflow/example_dags/subdags/subdag.py
-[2021-06-08 10:04:06,699] {scheduler_job.py:633} INFO - Processing file /home/encrypted/abaceti/.virtualenvs/pumpwood-airflow-images/lib/python3.6/site-packages/airflow/example_dags/subdags/subdag.py for tasks to queue
-[2021-06-08 10:04:06,699] {logging_mixin.py:104} INFO - [2021-06-08 10:04:06,699] {dagbag.py:487} INFO - Filling up the DagBag from /home/encrypted/abaceti/.virtualenvs/pumpwood-airflow-images/lib/python3.6/site-packages/airflow/example_dags/subdags/subdag.py
-[2021-06-08 10:04:06,700] {scheduler_job.py:645} WARNING - No viable dags retrieved from /home/encrypted/abaceti/.virtualenvs/pumpwood-airflow-images/lib/python3.6/site-packages/airflow/example_dags/subdags/subdag.py
-[2021-06-08 10:04:06,711] {scheduler_job.py:190} INFO - Processing /home/encrypted/abaceti/.virtualenvs/pumpwood-airflow-images/lib/python3.6/site-packages/airflow/example_dags/subdags/subdag.py took 0.014 seconds

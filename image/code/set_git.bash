@@ -11,8 +11,8 @@ cd /airflow/dags/
 git clone ${GIT_REPOSITORY} git_dags
 
 cd git_dags
-git checkout ${GIT_BRANCH}
 git pull
+git checkout ${GIT_BRANCH}
 
 ######################
 # Start cron process #

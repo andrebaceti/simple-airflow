@@ -45,6 +45,7 @@ ENV GIT_BRANCH="master"
 # Getting repositories #
 # Installing lsb-release to make life easier :)
 RUN apt-get update && apt-get install -y lsb-release && apt-get clean all
+RUN apt-get -y upgrade
 
 # Postgres
 RUN wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | \
@@ -108,8 +109,8 @@ RUN apt-get -y install python3 python3-dev python3-pip python3-wheel \
 COPY requirements/requirements.txt ./requirements/
 COPY requirements/constraints.txt ./requirements/
 RUN pip3 install --upgrade pip
-RUN pip3 install -r /requirements/requirements.txt \
-  -c /requirements/constraints.txt
+RUN pip3 install --use-deprecated=legacy-resolver -r \
+  /requirements/requirements.txt -c /requirements/constraints.txt
 
 
 #########################################

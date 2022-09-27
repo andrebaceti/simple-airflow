@@ -4,6 +4,8 @@
 # so it is nece
 cp /ssh_keys/id_rsa ~/.ssh/
 cp /ssh_keys/id_rsa.pub ~/.ssh/
+chown root:root ~/.ssh/id_rsa ~/.ssh/id_rsa.pub
+chmod 700 ~/.ssh/id_rsa ~/.ssh/id_rsa.pub
 
 # Setting known_hosts so accepting ssh keys is automatic
 ssh-keyscan ${GIT_SERVER} > ~/.ssh/known_hosts

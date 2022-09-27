@@ -34,6 +34,7 @@ ENV AIRFLOW__WEBSERVER__WEB_SERVER_HOST="0.0.0.0"
 ENV AIRFLOW__WEBSERVER__WEB_SERVER_PORT="8080"
 ENV AIRFLOW__WEBSERVER__SECRET_KEY_SECRET="o1vZ9ms0lEu2NaX7CXgfsw=="
 
+
 ###################
 # Git information #
 # ENV GIT_SERVER
@@ -60,6 +61,7 @@ RUN curl https://packages.microsoft.com/config/debian/9/prod.list > /etc/apt/sou
 
 # Installing cronjob to update Dags
 RUN apt-get install -y cron
+
 
 #######################################################
 # Updating system and installing general dependencies #
@@ -121,19 +123,23 @@ RUN mkdir -p /airflow/plugins/
 RUN mkdir -p /airflow/child_process_log/
 COPY code /airflow
 
+
 #####################################
 # Creating directories for ssh keys #
 RUN mkdir -p /ssh_keys/
 RUN mkdir -p /root/.ssh/
+
 
 #############################
 # Coping git update cronjob #
 ADD cron/update_git /etc/cron.d/update_git
 RUN crontab /etc/cron.d/update_git
 
+
 ###########################################################
 # Add a requirement to be installed every container start #
 ADD requirements/run_requirements.txt /requirements/requirements.txt
+
 
 ###################################
 # Default entrypoint as webserver #

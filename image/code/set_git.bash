@@ -1,4 +1,9 @@
 #!/bin/bash
+# Coping keys to ~/.ssh directory
+# Kubernets does not permit mouting single file secrets to pods
+# so it is nece
+cp /ssh_keys/id_rsa ~/.ssh/
+cp /ssh_keys/id_rsa.pub ~/.ssh/
 
 # Setting known_hosts so accepting ssh keys is automatic
 ssh-keyscan ${GIT_SERVER} > ~/.ssh/known_hosts

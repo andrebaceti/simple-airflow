@@ -1,2 +1,2 @@
 export TEST_DB_AIRFLOW="0.1"
-export AIRFLOW="0.3.4"
+export AIRFLOW="0.12"

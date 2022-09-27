@@ -121,6 +121,11 @@ RUN mkdir -p /airflow/plugins/
 RUN mkdir -p /airflow/child_process_log/
 COPY code /airflow
 
+#####################################
+# Creating directories for ssh keys #
+RUN mkdir -p /ssh_keys/
+RUN mkdir -p /root/.ssh/
+
 #############################
 # Coping git update cronjob #
 ADD cron/update_git /etc/cron.d/update_git

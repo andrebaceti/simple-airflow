@@ -21,7 +21,7 @@ services:
   airflow-webserver:
     image: andrebaceti/simple-airflow:$AIRFLOW
     volumes:
-      - airflow--ssh:/root/.ssh/
+      - airflow--ssh:/ssh_keys/
       # - airflow--logs:/airflow/logs/
       # - airflow--plugins:/airflow/plugins/
       # - airflow--child-process:/airflow/child_process_log/
@@ -35,7 +35,7 @@ services:
     image: andrebaceti/simple-airflow:$AIRFLOW
     command: ["bash", "/airflow/start_airflow__scheduler.bash"]
     volumes:
-      - airflow--ssh:/root/.ssh/
+      - airflow--ssh:/ssh_keys/
       # - airflow--dags:/airflow/dags/
       # - airflow--logs:/airflow/logs/
       # - airflow--plugins:/airflow/plugins/
@@ -48,7 +48,7 @@ services:
     image: andrebaceti/simple-airflow:$AIRFLOW
     command: ["bash", "/airflow/start_airflow__worker.bash"]
     volumes:
-      - airflow--ssh:/root/.ssh/
+      - airflow--ssh:/ssh_keys/
     #   - airflow--dags:/airflow/dags/
     #   - airflow--logs:/airflow/logs/
     #   - airflow--plugins:/airflow/plugins/

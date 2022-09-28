@@ -1,6 +1,6 @@
-# Image for easilly create an Airflow with distribuited cellery by RabbitMQ
+# Image for easily create an Airflow with distributed celery by RabbitMQ
 
-This project was created to vacillate creation of AirFlow deploy using a
+This project was created to help creation of AirFlow deploy using a
 default configuration and database bootstrap.  
 
 It was added the integration with git so the dags can be create and pushed to
@@ -9,6 +9,10 @@ loading new dags to Airflow.
 
 Git folder with dags is cloned to ```$AIRFLOW__CORE__DAGS_FOLDER/git_dags```
 path.
+
+New version 0.16 permits using Airflow behind Kong service mesh. Setting
+`KONG_API_URL` ENV variables change base airflow url to `/airflow` allowing
+route to redirect to `SERVICE_URL`.
 
 ## /image
 Image for airflow deployment using RabbitMQ and Cellery. Images created:
@@ -46,10 +50,10 @@ Using default test database in docker compose, users credentials are:
     CeleryKubernetesExecutor.
 
 ##### Host webserver [webserver]
-- **AIRFLOW__WEBSERVER__BASE_URL="http://localhost:8080/":**
-- **AIRFLOW__WEBSERVER__WEB_SERVER_HOST="0.0.0.0":** Host of the webserver.
-- **AIRFLOW__WEBSERVER__WEB_SERVER_PORT="8080":** Port to serve the webserver.
-- **AIRFLOW__WEBSERVER__SECRET_KEY_SECRET="o1vZ9ms0lEu2NaX7CXgfsw==":** Secret key
+- **AIRFLOW__WEBSERVER__BASE_URL="http://localhost:8080/"**
+- **AIRFLOW__WEBSERVER__WEB_SERVER_HOST="0.0.0.0"** Host of the webserver.
+- **AIRFLOW__WEBSERVER__WEB_SERVER_PORT="8080"** Port to serve the webserver.
+- **AIRFLOW__WEBSERVER__SECRET_KEY_SECRET="o1vZ9ms0lEu2NaX7CXgfsw=="** Secret key
     for flask login on the webserver. HAVE TO CHANGE THIS ON PRODUCTION!
 
 ##### Git integration
@@ -59,6 +63,10 @@ Using default test database in docker compose, users credentials are:
 - **GIT_BRANCH="master"**: Set which branch should be used to integrate the
     dags. This can be used to differ production, staging and development
     environments.
+
+##### Kong Integration
+- **KONG_API_URL:** Url to Kong API.
+- **SERVICE_URL:** Url to redirect calls from Kong to Airflow service.
 
 ## Image mounted secrets:
 The git user authentication is done by ssh keys associated with the repository.

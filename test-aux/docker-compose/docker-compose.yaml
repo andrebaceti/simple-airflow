@@ -1,5 +1,28 @@
 version: '3'
 services:
+  #################
+  # Load Balancer #
+  postgres-kong-database:
+    image: postgres:11
+    restart: always
+    ports:
+      - "9955:5432"
+    environment:
+      - POSTGRES_PASSWORD=kong
+      - POSTGRES_USER=kong
+      - POSTGRES_DB=kong
+
+  load-balancer:
+    image: gcr.io/repositorio-geral-170012/gateway-loadbalancer-kong:0.1
+    depends_on:
+      - postgres-kong-database
+    ports:
+      - "8080:8000"
+      - "8001:8001"
+      - "8443:8443"
+      - "7946:7946"
+      - "7946:7946/udp"
+
   test-db-airflow:
     image: andrebaceti/test-db-simple-airflow:$TEST_DB_AIRFLOW
     restart: always
@@ -16,53 +39,40 @@ services:
     environment:
       - RABBITMQ_DEFAULT_USER=pumpwood
       - RABBITMQ_DEFAULT_PASS=pumpwood
-  ############
 
   airflow-webserver:
     image: andrebaceti/simple-airflow:$AIRFLOW
+    container_name: "airflow-webserver"
     volumes:
       - airflow--ssh:/ssh_keys/
-      # - airflow--logs:/airflow/logs/
-      # - airflow--plugins:/airflow/plugins/
-      # - airflow--child-process:/airflow/child_process_log/
     environment:
       - GIT_SERVER=$GIT_SERVER
       - GIT_REPOSITORY=$GIT_REPOSITORY
+      - KONG_API_URL=http://load-balancer:8001
+      - SERVICE_URL=http://airflow-webserver:8080
     ports:
-      - 8080:8080
+      - 9000:8080
 
   airflow-scheduler:
     image: andrebaceti/simple-airflow:$AIRFLOW
     command: ["bash", "/airflow/start_airflow__scheduler.bash"]
     volumes:
       - airflow--ssh:/ssh_keys/
-      # - airflow--dags:/airflow/dags/
-      # - airflow--logs:/airflow/logs/
-      # - airflow--plugins:/airflow/plugins/
-      # - airflow--child-process:/airflow/child_process_log/
     environment:
       - GIT_SERVER=$GIT_SERVER
       - GIT_REPOSITORY=$GIT_REPOSITORY
+      - AIRFLOW__WEBSERVER__BASE_URL=http://0.0.0.0:8080/airflow
 
   airflow-worker:
     image: andrebaceti/simple-airflow:$AIRFLOW
     command: ["bash", "/airflow/start_airflow__worker.bash"]
     volumes:
       - airflow--ssh:/ssh_keys/
-    #   - airflow--dags:/airflow/dags/
-    #   - airflow--logs:/airflow/logs/
-    #   - airflow--plugins:/airflow/plugins/
-    #   - airflow--child-process:/airflow/child_process_log/
     environment:
       - GIT_SERVER=$GIT_SERVER
       - GIT_REPOSITORY=$GIT_REPOSITORY
+      - AIRFLOW__WEBSERVER__BASE_URL=http://0.0.0.0:8080/airflow
 
 volumes:
   airflow--ssh:
     external: true
-#   airflow--logs:
-#     external: true
-#   airflow--plugins:
-#     external: true
-#   airflow--child-process:
-#     external: true

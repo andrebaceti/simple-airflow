@@ -21,8 +21,9 @@ if KONG_API_URL is not None:
     # Creating service
     payload = {
         'name': "airflow", 'url': SERVICE_URL}
-    response_service = requests.put(
-        service_url, json=payload).json()
+    response_service = requests.put(service_url, json=payload)
+    response_service.raise_for_status()
+    response_service = response_service.json()
 
     # Creating route
     service_id = response_service["id"]
@@ -35,7 +36,8 @@ if KONG_API_URL is not None:
             "strip_path": strip_path,
             "service": {"id": service_id},
             "preserve_host": True})
-    response_routes.json()
+    response_routes.raise_for_status()
+    response_routes = response_routes.json()
     print("# Kong routes and services configured for airflow:")
     print("- service url:", SERVICE_URL)
     print("- route path: /airflow")

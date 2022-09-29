@@ -11,7 +11,7 @@ source "${SCRIPTPATH}/set_git.bash"
 
 if [ -f "/airflow/dags/git_dags/requirements/requirements.txt" ]; then
     echo "Installing requirements.txt"
-    pip install -r /airflow/dags/git_dags/requirements/requirements.txt
+    pip install --requirement /airflow/dags/git_dags/requirements/requirements.txt --constraint /requirements/constraints.txt
 fi
 
 set -e
@@ -19,5 +19,8 @@ echo "# Checking if there is any migrations to apply at database"
 airflow db init
 
 set +e
+echo "# Upgrading database"
+airflow db upgrade
+
 echo "# Starting webserver"
 airflow webserver

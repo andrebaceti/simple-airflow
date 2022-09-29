@@ -46,8 +46,10 @@ services:
     volumes:
       - airflow--ssh:/ssh_keys/
     environment:
+      - GIT_BRANCH=master
       - GIT_SERVER=$GIT_SERVER
       - GIT_REPOSITORY=$GIT_REPOSITORY
+      - AIRFLOW__WEBSERVER__SECRET_KEY=$AIRFLOW__WEBSERVER__SECRET_KEY
       - KONG_API_URL=http://load-balancer:8001
       - SERVICE_URL=http://airflow-webserver:8080
     ports:
@@ -61,7 +63,8 @@ services:
     environment:
       - GIT_SERVER=$GIT_SERVER
       - GIT_REPOSITORY=$GIT_REPOSITORY
-      - AIRFLOW__WEBSERVER__BASE_URL=http://0.0.0.0:8080/airflow
+      - GIT_BRANCH=master
+      - AIRFLOW__WEBSERVER__SECRET_KEY=$AIRFLOW__WEBSERVER__SECRET_KEY
 
   airflow-worker:
     image: andrebaceti/simple-airflow:$AIRFLOW
@@ -71,7 +74,8 @@ services:
     environment:
       - GIT_SERVER=$GIT_SERVER
       - GIT_REPOSITORY=$GIT_REPOSITORY
-      - AIRFLOW__WEBSERVER__BASE_URL=http://0.0.0.0:8080/airflow
+      - GIT_BRANCH=master
+      - AIRFLOW__WEBSERVER__SECRET_KEY=$AIRFLOW__WEBSERVER__SECRET_KEY
 
 volumes:
   airflow--ssh:

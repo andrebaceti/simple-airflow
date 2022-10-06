@@ -34,6 +34,9 @@ ENV AIRFLOW__WEBSERVER__WEB_SERVER_HOST="0.0.0.0"
 ENV AIRFLOW__WEBSERVER__WEB_SERVER_PORT="8080"
 ENV AIRFLOW__CORE__LOAD_EXAMPLES="false"
 
+# Change authentication to accept basic
+ENV AIRFLOW__API__AUTH_BACKENDS="airflow.api.auth.backend.basic_auth"
+
 ###################
 # Git information #
 # ENV GIT_SERVER

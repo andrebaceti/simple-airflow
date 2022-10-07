@@ -1,4 +1,4 @@
-FROM andrebaceti/regen-timescale-db:1.7.5-pg12
+FROM andrebaceti/regen-timescale-db:0.4-1.7.5-pg12
 
 ENV POSTGRES_PASSWORD pumpwood
 ENV POSTGRES_USER pumpwood
